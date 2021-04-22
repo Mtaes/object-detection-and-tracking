@@ -1,0 +1,17 @@
+name: odtenv
+channels:
+  - defaults
+  - pytorch
+  - conda-forge
+dependencies:
+  - python'>=3.8'
+  - pytorch
+  - torchvision
+  - cudatoolkit=10.2
+  - pillow
+  - numpy
+  - matplotlib
+  - opencv
+  - filterpy
+  - scikit-image
+  - lap
