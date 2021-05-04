@@ -23,9 +23,10 @@ class DetectImageDataset(torch.utils.data.Dataset):
 def detect(model, dataset):
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=1,  num_workers=1)
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    model.eval()
-    model.to(device)
-    dets = [model(image.to(device))[0] for image in data_loader]
+    with torch.no_grad():
+        model.eval()
+        model.to(device)
+        dets = [model(image.to(device))[0] for image in data_loader]
     results = draw_class_labels(dets, dataset, get_coco_classes())
     output_dir = os.path.join(dataset.input_dir, 'detections')
     pathlib.Path(output_dir).mkdir(exist_ok=True)
